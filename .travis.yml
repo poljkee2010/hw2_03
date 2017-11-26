@@ -15,12 +15,13 @@ script:
 - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
 - cmake --build _build
 - cd _build
-- ls
-- ./explorer CMakeFiles
-- ls
+- ./explorer CMakeCache.txt
 - cd ..
 - cmake --build _build --target install
-- cd _build
-- ls
-- cd ..
 - cmake --build _build --target test
+- cd _build
+- cpack -G "TGZ"
+- cd ..
+- cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+— cmake --build _build --target package
+- mv _build/*.tar.gz artifacts
