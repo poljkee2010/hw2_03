@@ -20,3 +20,4 @@ script:
 - cmake --build _build --target install		
 - cmake --build _build --target test
 - cmake --build _build --target package
+- mv _build/*.tar.gz artifacts
