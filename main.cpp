@@ -76,7 +76,6 @@ bool print_info(const fs::path& p)
     throw runtime_error("Type of file - directory");
   }
 
-  //  Получаем данные о файле
   bool is_ok = true;
   is_ok &= print_name(p);
   is_ok &= print_date(p);
@@ -92,17 +91,17 @@ int main(int argc, char* argv[])
     for (int i = 1; i < argc; i++)
     {
       fs::path Path = argv[i];
-      auto task = packaged_task<bool()> // Выполняем задание для future
+      auto task = packaged_task<bool()> 
       {
          bind(print_info, Path)
       };
-	    auto result = task.get_future();             //  Получаем future
+	    auto result = task.get_future();  
 	    thread task_td(move(task));
-	    task_td.join();            //  Добавляем задание в планировщик
-	    results.emplace(Path, move(result));             //  Добавляем future в контейнер
+	    task_td.join();    
+	    results.emplace(Path, move(result));     
     }
 
-    for(auto & p : results)  //Проходим по контейнеру и проверяем состояние future для переданных файлов
+    for(auto & p : results)  
     {
       auto& result = p.second;
       auto is_ok = result.get();
