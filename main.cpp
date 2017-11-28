@@ -76,11 +76,7 @@ bool print_info(const fs::path& p)
     throw runtime_error("Type of file - directory");
   }
 
-  bool is_ok = true;
-  is_ok &= print_name(p);
-  is_ok &= print_date(p);
-  is_ok &= print_size(p);
-  return is_ok;
+return true;
 }
 
 int main(int argc, char* argv[])
@@ -104,10 +100,10 @@ int main(int argc, char* argv[])
     for(auto & p : results)  
     {
       auto& result = p.second;
-      auto is_ok = result.get();
-      if (!is_ok)
+      auto ok = result.get();
+      if (!ok)
       {
-        cerr << "Wrong path!!! " << p.first << endl;
+        cerr << "Wrong !!! " << p.first << endl;
       }
     }
   }
